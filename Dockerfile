@@ -35,7 +35,7 @@ RUN cd /app/tools/license; mkdir jars; cd jars; \
     cd ../ && ./collect_license_files.sh ./jars ./licenses-output
 
 # stage
-FROM eclipse-temurin:${JAVA_VERSION}-jre-jammy
+FROM eclipse-temurin:${JAVA_VERSION}-jre-noble
 ENV FLINK_HOME=/opt/flink
 ENV FLINK_PLUGINS_DIR=$FLINK_HOME/plugins
 ENV OPERATOR_VERSION=1.12-SNAPSHOT
