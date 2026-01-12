@@ -73,7 +73,7 @@ RUN if [ "$DISABLE_JEMALLOC" = "false" ]; then \
   apt-get update; \
   apt-get -y install libjemalloc-dev; \
   apt-get install -y --no-install-recommends --only-upgrade \
-      pam libpam-modules libpam-modules-bin libpam-runtime libcommons-lang3-java; \
+      pam libpam-modules libpam-modules-bin libpam-runtime; \
   rm -rf /var/lib/apt/lists/*; \
   fi
 
