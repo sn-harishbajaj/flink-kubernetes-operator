@@ -35,7 +35,7 @@ RUN cd /app/tools/license; mkdir jars; cd jars; \
     cd ../ && ./collect_license_files.sh ./jars ./licenses-output
 
 # stage
-FROM eclipse-temurin:${JAVA_VERSION}-jre-jammy
+FROM eclipse-temurin:${JAVA_VERSION}-jre-noble
 ENV FLINK_HOME=/opt/flink
 ENV FLINK_PLUGINS_DIR=$FLINK_HOME/plugins
 ENV OPERATOR_VERSION=1.13-SNAPSHOT
@@ -72,6 +72,8 @@ ARG DISABLE_JEMALLOC=false
 RUN if [ "$DISABLE_JEMALLOC" = "false" ]; then \
   apt-get update; \
   apt-get -y install libjemalloc-dev; \
+  apt-get install -y --no-install-recommends --only-upgrade \
+      pam libpam-modules libpam-modules-bin libpam-runtime; \
   rm -rf /var/lib/apt/lists/*; \
   fi
 
