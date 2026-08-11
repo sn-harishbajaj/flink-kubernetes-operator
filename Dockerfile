@@ -70,6 +70,13 @@ ARG SKIP_OS_UPDATE=true
 RUN if [ "$SKIP_OS_UPDATE" = "false" ]; then apt-get update; fi
 RUN if [ "$SKIP_OS_UPDATE" = "false" ]; then apt-get upgrade -y; fi
 
+# Patch specific base-image packages with known HIGH CVEs (CVE-2026-11822,
+# CVE-2026-11824 in libsqlite3-0; CVE-2026-42496, CVE-2026-8376 in perl-base),
+# independent of SKIP_OS_UPDATE so these land even in a skip-OS-update build.
+RUN apt-get update && \
+    apt-get install -y --only-upgrade libsqlite3-0 perl-base && \
+    rm -rf /var/lib/apt/lists/*
+
 ARG DISABLE_JEMALLOC=false
 # Install jemalloc
 RUN if [ "$DISABLE_JEMALLOC" = "false" ]; then \
